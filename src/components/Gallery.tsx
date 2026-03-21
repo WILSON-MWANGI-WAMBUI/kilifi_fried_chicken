@@ -4,7 +4,7 @@ import g3 from "@/assets/gallery-3.jpg";
 import g4 from "@/assets/gallery-4.jpg";
 import g5 from "@/assets/gallery-5.jpg";
 import g6 from "@/assets/gallery-6.jpg";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useScrollReveal";
 
 const images = [
   { src: g1, alt: "Crispy fried chicken bucket" },
@@ -16,12 +16,13 @@ const images = [
 ];
 
 const Gallery = () => {
-  const ref = useScrollReveal();
+  const headingRef = useScrollReveal();
+  const imgRefs = useStaggerReveal(images.length, 80, 100);
 
   return (
     <section id="gallery" className="py-20 md:py-28">
-      <div className="container" ref={ref}>
-        <div className="text-center mb-12">
+      <div className="container">
+        <div className="text-center mb-12" ref={headingRef}>
           <span className="text-sm font-semibold text-accent uppercase tracking-widest">Gallery</span>
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 text-balance">See What's Cooking</h2>
         </div>
@@ -30,6 +31,7 @@ const Gallery = () => {
           {images.map((img, i) => (
             <div
               key={i}
+              ref={imgRefs[i]}
               className="aspect-square overflow-hidden rounded-xl group"
             >
               <img
