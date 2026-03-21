@@ -2,7 +2,7 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import { useScrollReveal, useStaggerReveal } from "@/hooks/useScrollReveal";
 
 const items = [
   { name: "1 Piece Chicken", price: 150, image: gallery1, desc: "Crispy golden fried chicken" },
@@ -12,21 +12,23 @@ const items = [
 ];
 
 const MenuSection = () => {
-  const ref = useScrollReveal();
+  const headingRef = useScrollReveal();
+  const cardRefs = useStaggerReveal(items.length, 100);
 
   return (
     <section id="menu" className="py-20 md:py-28 bg-card">
-      <div className="container" ref={ref}>
-        <div className="text-center mb-12">
+      <div className="container">
+        <div className="text-center mb-12" ref={headingRef}>
           <span className="text-sm font-semibold text-accent uppercase tracking-widest">Our Menu</span>
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 text-balance">Taste the Crunch</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((item) => (
+          {items.map((item, i) => (
             <div
               key={item.name}
-              className="group bg-background rounded-xl overflow-hidden shadow-md shadow-foreground/5 hover:shadow-xl hover:shadow-foreground/10 transition-shadow"
+              ref={cardRefs[i]}
+              className="group bg-background rounded-xl overflow-hidden shadow-md shadow-foreground/5 hover:shadow-xl hover:shadow-foreground/10 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="aspect-square overflow-hidden">
                 <img

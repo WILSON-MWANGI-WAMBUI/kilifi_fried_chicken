@@ -2,17 +2,18 @@ import { Star } from "lucide-react";
 import { useScrollReveal } from "@/hooks/useScrollReveal";
 
 const Reviews = () => {
-  const ref = useScrollReveal();
+  const headingRef = useScrollReveal();
+  const cardRef = useScrollReveal({ delay: 150 });
 
   return (
     <section id="reviews" className="py-20 md:py-28 bg-card">
-      <div className="container" ref={ref}>
-        <div className="text-center mb-12">
+      <div className="container">
+        <div className="text-center mb-12" ref={headingRef}>
           <span className="text-sm font-semibold text-accent uppercase tracking-widest">Reviews</span>
           <h2 className="text-3xl md:text-4xl font-extrabold mt-2 text-balance">What People Say</h2>
         </div>
 
-        <div className="max-w-lg mx-auto">
+        <div className="max-w-lg mx-auto" ref={cardRef}>
           <div className="bg-background rounded-2xl p-8 shadow-md shadow-foreground/5 text-center">
             <div className="flex items-center justify-center gap-1 mb-4">
               {Array.from({ length: 5 }).map((_, i) => (
